@@ -18,7 +18,7 @@
             @include('layouts.navigation')
 
             <!-- Page Heading -->
-            @auth
+
 
                 @if (isset($header))
                     <header class="bg-white dark:bg-gray-800 shadow">
@@ -27,7 +27,7 @@
                         </div>
                     </header>
                 @endif
-            @endauth
+
 
             <!-- Page Content -->
             <main>
