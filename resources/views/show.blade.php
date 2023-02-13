@@ -19,7 +19,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="flex-col p-6 text-gray-900 dark:text-gray-100">
                     <div class="">
-                        <img class="w-full h-96" src="https://picsum.photos/1500/1500" alt="Post image">
+                        <img class="w-full h-96" src="{{ Storage::disk('s3')->url("/images/".$value->image) }}" alt="Post image">
                     </div>
                     <div class="flex-1 mt-4">
                       <p class="text-sm text-gray-700 text-justify">{{ $article->description }}</p>
