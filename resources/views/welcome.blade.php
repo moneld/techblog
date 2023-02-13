@@ -41,7 +41,7 @@
                         @forelse($articles as $value)
 
                         <li class="flex items-start space-x-6 shadow-md rounded-sm p-4">
-<a href="{{ route('article.show') }}">
+<a href="{{ route('article.show',$value->id) }}">
     <div class="w-36 h-36" >
         <img class="w-36 h-36 rounded-full" src="{{ Storage::disk('s3')->url("/images/".$value->image) }}" alt="{{$value->title}}">
 
