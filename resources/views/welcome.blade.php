@@ -41,17 +41,19 @@
                         @forelse($articles as $value)
 
                         <li class="flex items-start space-x-6 shadow-md rounded-sm p-4">
-<div class="w-36 h-36" >
-    <img class="w-36 h-36 rounded-full" src="{{ Storage::disk('s3')->url("/images/".$value->image) }}" alt="{{$value->title}}">
+<a href="{{ route('article.show') }}">
+    <div class="w-36 h-36" >
+        <img class="w-36 h-36 rounded-full" src="{{ Storage::disk('s3')->url("/images/".$value->image) }}" alt="{{$value->title}}">
 
-    </div>
-          <div class="flex-1 ml-2">
-                              <h3 class="text-lg font-medium"> {{\Illuminate\Support\Str::title($value->title)}}</h3>
-                              <hr class="my-2">
-                              <p class="text-sm text-gray-700">{{ Str::words($value->description, 100, ' ...') }}</p>
-                              <hr class="my-2">
-                              <p class="text-sm text-gray-500">Publié le <time>{{$value->created_at->format('d/m/Y')}}</time> par <span class="font-medium">{{$value->user->name}}</span></p>
-                            </div>
+        </div>
+              <div class="flex-1 ml-2">
+                                  <h3 class="text-lg font-medium"> {{\Illuminate\Support\Str::title($value->title)}}</h3>
+                                  <hr class="my-2">
+                                  <p class="text-sm text-gray-700">{{ Str::words($value->description, 100, ' ...') }}</p>
+                                  <hr class="my-2">
+                                  <p class="text-sm text-gray-500">Publié le <time>{{$value->created_at->format('d/m/Y')}}</time> par <span class="font-medium">{{$value->user->name}}</span></p>
+                                </div>
+</a>
                           </li>
                         @empty
                             <li class="text-xl font-semibold text-gray-800 hover:underline dark:text-white text-center">Oups !!!</li>
