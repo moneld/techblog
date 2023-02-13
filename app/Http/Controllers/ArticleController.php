@@ -18,6 +18,12 @@ class ArticleController extends Controller
         return view('welcome')->with(compact('articles'));
     }
 
+    public function dashboard()
+    {
+        $articles = Article::with('user')->latest()->get();
+        return view('dashboard')->with(compact('articles'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -25,7 +31,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        return  view('create');
     }
 
     /**
@@ -44,8 +50,8 @@ class ArticleController extends Controller
 
         $imageName = $request->image->hashName();
 
-        $request->image->move(public_path('images'), $imageName);
-        // $request->image->storeAs('images', $imageName, 's3');
+        //$request->image->move(public_path('images'), $imageName);
+        $request->image->storeAs('images', $imageName, 's3');
 
         auth()->user()->articles()->create([
             'title' => $request->title,
@@ -64,7 +70,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        //
+        return  view('show')->with(['article' => $article]);
     }
 
     /**

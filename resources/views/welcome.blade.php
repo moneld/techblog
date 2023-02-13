@@ -17,52 +17,51 @@
         <div class="relative flex-col items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
 
 
-                <nav class="relative select-none bg-gray-800 lg:flex lg:items-stretch w-full">
-                    <div class="flex flex-no-shrink items-stretch h-12">
-                        <a href="#" class="text-3xl font-semibold capitalize flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark">TechBlog</a>
-
-
+                <nav class="flex items-center justify-between py-2 px-11 bg-gray-800">
+                    <a href="#">
+                      <h3 class="text-white text-2xl">Tech<span class="text-indigo-700">Blog</span></h3>
+                    </a>
+                    <div class="flex space-x-4">
+                        @auth
+                            <a class="px-4 py-2 bg-gray-600 text-white rounded-full" href="{{ url('/dashboard')}}">Tableau de bord</a>
+                        @else
+                            <a class="px-4 py-2 bg-gray-600 text-white rounded-full" href="{{ route('login') }}">Connexion</a>
+                        @if (Route::has('register'))
+                            <a class="px-4 py-2 bg-gray-600 text-white rounded-full" href="{{ route('register') }}">Inscription</a>
+                        @endif
+                      @endauth
                     </div>
-                    <div class="lg:flex lg:items-stretch lg:flex-no-shrink lg:flex-grow">
-                        <div class="lg:flex lg:items-stretch lg:justify-end ml-auto">
-                            @auth
-                                <a href="{{ url('/dashboard') }}" class="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark">Dashboard</a>
-                            @else
-                                <a href="{{ route('login') }}" class="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark">Log in</a>
+                  </nav>
 
-                                @if (Route::has('register'))
-                                    <a href="{{ route('register') }}" class="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark">Register</a>
-                                @endif
-                            @endauth
-                        </div>
-                    </div>
-                </nav>
 
-            <!-- component -->
             <section class="bg-white dark:bg-gray-900">
-                <div class="container px-6 py-10 mx-auto">
+                <div class="container px-11 py-10 mx-auto">
 
-                    <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
-
+                    <ul class="flex flex-col space-y-6">
                         @forelse($articles as $value)
 
-                            <div class="lg:flex">
-                                <img class="object-cover w-full h-56 rounded-lg lg:w-64" src="{{ url("/images/".$value->image) }}" alt="{{$value->title}}">
+                        <li class="flex items-start space-x-6 shadow-md rounded-sm p-4">
+<div class="w-36 h-36" >
+    <img class="w-36 h-36 rounded-full" src="{{ Storage::disk('s3')->url("/images/".$value->image) }}" alt="{{$value->title}}">
 
-                                <div class="flex flex-col justify-between py-6 lg:mx-6">
-                                    <a href="#" class="text-xl font-semibold text-blue-800 hover:underline dark:text-white ">
-                                        {{\Illuminate\Support\Str::title($value->title)}}
-                                    </a>
-
-                                    <p>{{ Str::words($value->description, 10, ' ...') }}</p>
-
-                                    <span class="text-sm text-gray-500 dark:text-gray-300">Par : {{$value->user->name}}, le {{$value->created_at->format('d/m/Y')}}</span>
-                                </div>
+    </div>
+          <div class="flex-1 ml-2">
+                              <h3 class="text-lg font-medium"> {{\Illuminate\Support\Str::title($value->title)}}</h3>
+                              <hr class="my-2">
+                              <p class="text-sm text-gray-700">{{ Str::words($value->description, 100, ' ...') }}</p>
+                              <hr class="my-2">
+                              <p class="text-sm text-gray-500">Publié le <time>{{$value->created_at->format('d/m/Y')}}</time> par <span class="font-medium">{{$value->user->name}}</span></p>
                             </div>
+                          </li>
                         @empty
+                            <li class="text-xl font-semibold text-gray-800 hover:underline dark:text-white text-center">Oups !!!</li>
                         @endforelse
 
-                    </div>
+
+                      </ul>
+
+
+
                 </div>
             </section>
         </div>
